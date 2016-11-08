@@ -1,39 +1,45 @@
 package com.gdlactivity.libgdxdemo;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.gdlactivity.libgdxdemo.screen.AbstractScreen;
-import com.gdlactivity.libgdxdemo.screen.BoidsDemo;
+import com.gdlactivity.libgdxdemo.controller.SpriteAccessor;
+import com.gdlactivity.libgdxdemo.screen.Menu;
+import com.gdlactivity.libgdxdemo.screen.Splash;
+import com.gdlactivity.libgdxdemo.utils.Constants;
 
-public class GDLActivity extends ApplicationAdapter {
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
 
-	private static SpriteBatch batch;
-	Texture img;
+public class GDLActivity extends Game {
 
 	private Viewport viewport;
-	private Camera camera;
 
-	AbstractScreen screen;
+	//Singleton
+	private static Camera camera;
+	private static SpriteBatch batch;
+	private static TweenManager tweenManager;
 
 	@Override
 	public void create () {
 
 		batch = new SpriteBatch();
-		img = new Texture("imgs/Android_Logo.png");
 
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(480, 800, camera);
+		viewport = new FitViewport(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, camera);
 
-		screen = new BoidsDemo();
+		tweenManager = new TweenManager();
 
+		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
+
+		this.setScreen(new Splash());
+		//this.setScreen(new Menu());
 
 	}
 
@@ -41,23 +47,17 @@ public class GDLActivity extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		/*
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-		*/
 
 		batch.setProjectionMatrix(camera.combined);
 
-		screen.render(Gdx.graphics.getDeltaTime());
+		getScreen().render(Gdx.graphics.getDeltaTime() * Constants.GLOBAL_SPEED_FACTOR);
 
-
+		tweenManager.update(Gdx.graphics.getDeltaTime() * Constants.ANIMATION_SPEED_FACTOR_UI * Constants.GLOBAL_SPEED_FACTOR);
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 
 	public void resize(int width, int height) {
@@ -65,10 +65,20 @@ public class GDLActivity extends ApplicationAdapter {
 	}
 
 	public static SpriteBatch getSpriteBatch() {
-
 		if(batch == null)
 			batch = new SpriteBatch();
-
 		return batch;
+	}
+
+	public static Camera getCamera() {
+		if(camera == null)
+			camera = new OrthographicCamera();
+		return camera;
+	}
+
+	public static TweenManager getTweenManager() {
+		if(tweenManager == null)
+			tweenManager = new TweenManager();
+		return tweenManager;
 	}
 }

@@ -3,7 +3,7 @@ package com.gdlactivity.libgdxdemo.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.gdlactivity.libgdxdemo.MathUtils;
+import com.gdlactivity.libgdxdemo.utils.MathUtils;
 
 import java.util.ArrayList;
 
@@ -15,8 +15,6 @@ public class Boid extends Sprite {
 
     private Vector2 position;
     private Vector2 velocity;
-    private Vector2 acceleration;
-
 
     private Vector2 alignment;
     private Vector2 cohesion;
@@ -37,7 +35,6 @@ public class Boid extends Sprite {
 
         this.position = new Vector2(0, 0);
         velocity = new Vector2((float)(Math.random() * 3)-1, (float)(Math.random() * 3)-1);
-        acceleration = new Vector2(0, 0);
 
     }
 

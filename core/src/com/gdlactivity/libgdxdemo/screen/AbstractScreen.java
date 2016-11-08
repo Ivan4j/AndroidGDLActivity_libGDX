@@ -5,6 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdlactivity.libgdxdemo.GDLActivity;
+import com.gdlactivity.libgdxdemo.controller.UIController;
+import com.gdlactivity.libgdxdemo.ui.UIComponent;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ivan_Hernandez on 07/11/2016.
@@ -12,11 +16,17 @@ import com.gdlactivity.libgdxdemo.GDLActivity;
 
 public abstract class AbstractScreen implements Screen {
 
-    SpriteBatch spriteBatch;
+    protected SpriteBatch spriteBatch;
+    protected ArrayList<UIComponent> uiComponents;
+    protected UIController uiController;
 
     public AbstractScreen() {
 
         spriteBatch = GDLActivity.getSpriteBatch();
+        uiComponents = new ArrayList<UIComponent>();
+        uiController = new UIController(uiComponents);
+
+        Gdx.input.setInputProcessor(uiController);
 
     }
 

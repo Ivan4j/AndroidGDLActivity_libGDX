@@ -7,4 +7,10 @@ package com.gdlactivity.libgdxdemo.controller;
 public class GameController {
 
 
+    public void update() {
+
+
+
+    }
+
 }
