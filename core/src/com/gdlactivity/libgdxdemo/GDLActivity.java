@@ -34,15 +34,20 @@ public class GDLActivity extends ApplicationAdapter {
 
 		screen = new BoidsDemo();
 
+
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		/*
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
+		*/
+
+		batch.setProjectionMatrix(camera.combined);
 
 		screen.render(Gdx.graphics.getDeltaTime());
 
@@ -56,7 +61,7 @@ public class GDLActivity extends ApplicationAdapter {
 	}
 
 	public void resize(int width, int height) {
-		viewport.update(width, height);
+		viewport.update(width, height, true);
 	}
 
 	public static SpriteBatch getSpriteBatch() {
