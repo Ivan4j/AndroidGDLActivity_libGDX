@@ -2,7 +2,7 @@
 libGDX code for Android GDL meetup
 
 This repository contains code examples using the libGDX framework.
-This examples are developed with the purpose of showing libGDX features for game development.
+These examples are developed with the purpose of showing libGDX features for game development.
 
 Images in this repository
 * Angry birds Images
