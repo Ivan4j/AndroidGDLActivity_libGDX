@@ -4,13 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.gdlactivity.libgdxdemo.controller.UIController;
+import com.gdlactivity.libgdxdemo.action.LoadScreenAction;
 import com.gdlactivity.libgdxdemo.ui.Button;
 import com.gdlactivity.libgdxdemo.ui.ButtonType;
-import com.gdlactivity.libgdxdemo.ui.UIComponent;
 import com.gdlactivity.libgdxdemo.utils.Constants;
-
-import java.util.ArrayList;
 
 /**
  * Created by Ivan_Hernandez on 07/11/2016.
@@ -54,6 +51,12 @@ public class Splash extends AbstractScreen {
         continueButton.setBounds(Constants.SCREEN_WIDTH - 70, 20, 50, 50);
 
         uiComponents.add(continueButton);
+
+        continueButton.setAction(new LoadScreenAction(AvailableScreens.MENU));
+    }
+
+    @Override
+    public void show() {
 
     }
 

@@ -4,12 +4,15 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.gdlactivity.libgdxdemo.GDLActivity;
+import com.gdlactivity.libgdxdemo.ui.Button;
 import com.gdlactivity.libgdxdemo.ui.UIComponent;
 import com.gdlactivity.libgdxdemo.utils.MathUtils;
 
 import java.util.ArrayList;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Back;
 import aurelienribon.tweenengine.equations.Cubic;
 import aurelienribon.tweenengine.equations.Quad;
@@ -118,25 +121,32 @@ public class UIController implements InputProcessor {
     }
 
 
-    public void animateComponentIN(Sprite component) {
+    public void animateComponentIN(UIComponent component) {
 
         component.setScale(1);
 
         Tween.to(component, SpriteAccessor.SCALE_XY, 0.15f)
-                .target(1.15f, 1.15f)
-                .ease(Back.OUT)
-                .start(GDLActivity.getTweenManager());
+            .target(1.15f, 1.15f)
+            .ease(Back.OUT)
+            .start(GDLActivity.getTweenManager());
 
         System.out.println("Animate IN");
 
     }
 
-    public void animateComponentOUT(Sprite component) {
+    public void animateComponentOUT(final UIComponent component) {
 
         Tween.to(component, SpriteAccessor.SCALE_XY, 0.2f)
-                .target(1f, 1f)
-                .ease(Back.IN)
-                .start(GDLActivity.getTweenManager());
+            .target(1f, 1f)
+            .ease(Back.IN)
+            .setCallback(new TweenCallback() {
+                @Override
+                public void onEvent(int i, BaseTween<?> baseTween) {
+                    if(component instanceof Button)
+                        ((Button) component).executeAction();
+                }
+            })
+            .start(GDLActivity.getTweenManager());
 
         System.out.println("Animate OUT");
 

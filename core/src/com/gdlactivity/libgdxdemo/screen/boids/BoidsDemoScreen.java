@@ -1,9 +1,10 @@
-package com.gdlactivity.libgdxdemo.screen;
+package com.gdlactivity.libgdxdemo.screen.boids;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.gdlactivity.libgdxdemo.model.Boid;
+import com.gdlactivity.libgdxdemo.screen.AbstractScreen;
 
 import java.util.ArrayList;
 
@@ -11,14 +12,14 @@ import java.util.ArrayList;
  * Created by Ivan_Hernandez on 07/11/2016.
  */
 
-public class BoidsDemo extends AbstractScreen {
+public class BoidsDemoScreen extends AbstractScreen {
 
     private ArrayList<Boid> boidsList = new ArrayList<Boid>();
     private Texture[] boidTexture = new Texture[5];
     private int boidsTotal = 80;
     private String[] imageNames = {"imgs/redbird.png", "imgs/blackbird.png", "imgs/bluebird.png", "imgs/greenbird.png", "imgs/yellowbird.png"};
 
-    public BoidsDemo() {
+    public BoidsDemoScreen() {
 
         for(int i=0; i<imageNames.length; i++) {
             boidTexture[i] = new Texture(Gdx.files.internal(imageNames[i]));

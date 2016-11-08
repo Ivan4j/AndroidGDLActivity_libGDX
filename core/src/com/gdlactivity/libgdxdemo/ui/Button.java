@@ -2,6 +2,7 @@ package com.gdlactivity.libgdxdemo.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.gdlactivity.libgdxdemo.action.IAction;
 
 /**
  * Created by Ivan_Hernandez on 08/11/2016.
@@ -14,6 +15,8 @@ public class Button extends UIComponent {
 
     private String text;
     private int id;
+
+    IAction action;
 
     public Button(ButtonType type) {
 
@@ -83,9 +86,18 @@ public class Button extends UIComponent {
         return this.id;
     }
 
+    public void setAction(IAction action) {
+        this.action = action;
+    }
+
     public void executeAction() {
 
-
+        if(this.action != null) {
+            System.out.println("Action OK");
+            this.action.execute();
+        } else
+            System.err.println("Action null");
     }
+
 }
 

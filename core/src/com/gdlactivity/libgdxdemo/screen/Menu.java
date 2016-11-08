@@ -3,6 +3,7 @@ package com.gdlactivity.libgdxdemo.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.gdlactivity.libgdxdemo.GDLActivity;
+import com.gdlactivity.libgdxdemo.action.LoadScreenAction;
 import com.gdlactivity.libgdxdemo.ui.Button;
 import com.gdlactivity.libgdxdemo.ui.ButtonType;
 import com.gdlactivity.libgdxdemo.ui.UIComponent;
@@ -36,6 +37,8 @@ public class Menu extends AbstractScreen {
 
             ((Button)uiButtons[i]).setId(i);
             uiComponents.add(uiButtons[i]);
+
+            ((Button)uiButtons[i]).setAction(new LoadScreenAction(AvailableScreens.values()[uiButtons.length - i - 1]));
         }
 
     }

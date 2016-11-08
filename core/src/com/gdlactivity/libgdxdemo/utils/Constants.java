@@ -1,5 +1,7 @@
 package com.gdlactivity.libgdxdemo.utils;
 
+import com.badlogic.gdx.math.Vector2;
+
 /**
  * Created by Ivan_Hernandez on 08/11/2016.
  */
@@ -15,4 +17,7 @@ public interface Constants {
     //Another speed factor, for the UI animation speed. Default = 1f
     float ANIMATION_SPEED_FACTOR_UI = 1f;
 
+
+    //Box2D constants
+    Vector2 GRAVITY = new Vector2(0, -9.8f);
 }

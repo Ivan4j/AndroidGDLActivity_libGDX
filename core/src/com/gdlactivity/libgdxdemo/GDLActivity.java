@@ -2,6 +2,7 @@ package com.gdlactivity.libgdxdemo;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdlactivity.libgdxdemo.controller.SpriteAccessor;
 import com.gdlactivity.libgdxdemo.screen.Menu;
+import com.gdlactivity.libgdxdemo.screen.ScreenManager;
 import com.gdlactivity.libgdxdemo.screen.Splash;
 import com.gdlactivity.libgdxdemo.utils.Constants;
 
@@ -26,8 +28,11 @@ public class GDLActivity extends Game {
 	private static SpriteBatch batch;
 	private static TweenManager tweenManager;
 
+
 	@Override
 	public void create () {
+
+		ScreenManager.getInstance().setGame(this);
 
 		batch = new SpriteBatch();
 
@@ -50,7 +55,7 @@ public class GDLActivity extends Game {
 
 		batch.setProjectionMatrix(camera.combined);
 
-		getScreen().render(Gdx.graphics.getDeltaTime() * Constants.GLOBAL_SPEED_FACTOR);
+		ScreenManager.getInstance().getGame().getScreen().render(Gdx.graphics.getDeltaTime() * Constants.GLOBAL_SPEED_FACTOR);
 
 		tweenManager.update(Gdx.graphics.getDeltaTime() * Constants.ANIMATION_SPEED_FACTOR_UI * Constants.GLOBAL_SPEED_FACTOR);
 	}
@@ -81,4 +86,5 @@ public class GDLActivity extends Game {
 			tweenManager = new TweenManager();
 		return tweenManager;
 	}
+
 }
