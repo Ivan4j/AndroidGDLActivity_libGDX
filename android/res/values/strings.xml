@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">gdl-activity-demo</string>
-
+    <string name="app_name">libGDX - Android Demo</string>
+    <string name="user">libGDX - Android</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_1">Splash Screen</string>
+    <string name="section_2">Menu Screen</string>
+    <string name="other_options">Other options</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_2">Option 2</string>
+    <string name="section_3">Boids Screen</string>
+    <string name="section_4">Box2D Screen</string>
+    <string name="menu_A">Menu A</string>
+    <string name="menu_B">Menu B</string>
+    <string name="libgdx_fragment">Fragment</string>
 </resources>

@@ -56,7 +56,9 @@ public class UIController implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
+        //GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
+        touchPoint = GDLActivity.getViewport().unproject(new Vector3(screenX,screenY,0));
+
         dragging = true;
 
         uiSelected = null;
@@ -79,7 +81,8 @@ public class UIController implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-        GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
+        //GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
+        touchPoint = GDLActivity.getViewport().unproject(new Vector3(screenX,screenY,0));
         if (dragging) {
             for (UIComponent ui : this.uiCopmponents) {
                 if (MathUtils.checkTouchCollision(touchPoint, ui.getBoundingRectangle())) {
@@ -107,7 +110,8 @@ public class UIController implements InputProcessor {
         if (!dragging)
             return false;
 
-        GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
+        //GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
+        touchPoint = GDLActivity.getViewport().unproject(new Vector3(screenX,screenY,0));
 
         return true;
     }

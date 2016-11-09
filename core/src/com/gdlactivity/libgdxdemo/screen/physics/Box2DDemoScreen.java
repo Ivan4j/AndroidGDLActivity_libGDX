@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdlactivity.libgdxdemo.GDLActivity;
@@ -32,8 +33,8 @@ public class Box2DDemoScreen extends AbstractScreen {
     private Camera physicsWorldCamera;
 
     private Button backButton;
-    private Button enablePhysicsDebugButton;
     private Button enableTextureButton;
+    private Button enableEnvironmentCollision;
 
     public Box2DDemoScreen() {
 
@@ -48,46 +49,58 @@ public class Box2DDemoScreen extends AbstractScreen {
         enableTextureButton = new Button(ButtonType.CONTINUE);
         enableTextureButton.setBounds(Constants.BUTTON_SIZE_MED * 2f, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
 
-        enablePhysicsDebugButton = new Button(ButtonType.CONTINUE);
-        enablePhysicsDebugButton.setBounds(Constants.BUTTON_SIZE_MED * 3.5f, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
+        enableEnvironmentCollision = new Button(ButtonType.CONTINUE);
+        enableEnvironmentCollision.setBounds(Constants.BUTTON_SIZE_MED * 3.5f, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
 
         uiComponents.add(backButton);
         uiComponents.add(enableTextureButton);
-        uiComponents.add(enablePhysicsDebugButton);
+        uiComponents.add(enableEnvironmentCollision);
 
         backButton.setAction(new LoadScreenAction(AvailableScreens.MENU));
 
         enableTextureButton.setAction(new IAction() {
             @Override
             public void execute() {
+
                 stage.setDrawTextures(!stage.isDrawTextures());
+
+                try {
+
+                    if(stage.isDrawTextures())
+                        backgroundTexture = new Texture(Gdx.files.internal("imgs/ab_background02.png"));
+                    else
+                        backgroundTexture = new Texture(Gdx.files.internal("imgs/background_white.png"));
+
+                    backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+                    backgroundSprite.setTexture(backgroundTexture);
+
+                } catch(Exception e) {
+                    System.err.println(e.getMessage());
+                    System.err.println("Background not found, default one applied.");
+                }
+
             }
         });
 
-        enablePhysicsDebugButton.setAction(new IAction() {
+        enableEnvironmentCollision.setAction(new IAction() {
             @Override
             public void execute() {
-                stage.setDrawPhysicsDebug(!stage.isDrawPhysicsDebug());
+                stage.setEnvironmentCollisions(!stage.isEnvironmentCollisions());
             }
         });
+
+
+
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
 
-        // Clear screen
-        if(stage.isDrawPhysicsDebug())
-            Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-        else
-            Gdx.gl.glClearColor(1f, 1f, 1f, 1);
-
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         spriteBatch.begin();
         backButton.draw(spriteBatch);
         enableTextureButton.draw(spriteBatch);
-        enablePhysicsDebugButton.draw(spriteBatch);
+        enableEnvironmentCollision.draw(spriteBatch);
         spriteBatch.end();
 
         stage.draw();

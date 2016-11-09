@@ -48,6 +48,17 @@ public class BoidsDemoScreen extends AbstractScreen {
 
         backButton.setAction(new LoadScreenAction(AvailableScreens.MENU));
 
+
+        try {
+            backgroundTexture = new Texture(Gdx.files.internal("imgs/ab_background.png"));
+            backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+            backgroundSprite.setTexture(backgroundTexture);
+
+        } catch(Exception e) {
+            System.err.println(e.getMessage());
+            System.err.println("Background not found, default one applied.");
+        }
     }
 
     @Override
@@ -58,10 +69,6 @@ public class BoidsDemoScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-
-        // Clear screen
-        Gdx.gl.glClearColor(1, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         spriteBatch.begin();
 

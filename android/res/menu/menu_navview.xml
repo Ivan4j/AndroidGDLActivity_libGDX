@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_seccion_1"
+            android:icon="@drawable/ic_menu"
+            android:title="@string/section_1"/>
+        <item
+            android:id="@+id/menu_seccion_2"
+            android:icon="@drawable/ic_menu"
+            android:title="@string/section_2"/>
+        <item
+            android:id="@+id/menu_seccion_3"
+            android:icon="@drawable/ic_menu"
+            android:title="@string/section_3"/>
+        <item
+            android:id="@+id/menu_seccion_4"
+            android:icon="@drawable/ic_menu"
+            android:title="@string/section_4"/>
+    </group>
+
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title="@string/other_options">
+        <menu>
+            <item
+                android:id="@+id/menu_option_1"
+                android:icon="@drawable/ic_menu"
+                android:title="@string/option_1"/>
+            <item
+                android:id="@+id/menu_option_2"
+                android:icon="@drawable/ic_menu"
+                android:title="@string/option_2"/>
+        </menu>
+    </item>
+</menu>

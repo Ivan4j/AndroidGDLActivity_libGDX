@@ -37,6 +37,7 @@ public class Box2DStage extends Stage {
 
     private boolean drawPhysicsDebug = true;
     private boolean drawTextures = false;
+    private boolean environmentCollision = false;
 
     private float accumulator = 0;
     private final float step = 1 / 60f;
@@ -44,6 +45,7 @@ public class Box2DStage extends Stage {
     boolean accelerometerAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
 
     private Array<Body> dynamicBodies;
+    private Array<Body> staticBodies;
     private Array<Sprite> bodySprites;
 
     private int bodiesTotal = 25;
@@ -65,6 +67,7 @@ public class Box2DStage extends Stage {
 
         dynamicBodies = new Array<Body>();
         bodySprites = new Array<Sprite>();
+        staticBodies  = new Array<Body>();
 
         for(int i=0; i<imageNames.length; i++) {
             boidTexture[i] = new Texture(Gdx.files.internal(imageNames[i]));
@@ -73,9 +76,7 @@ public class Box2DStage extends Stage {
 
         buildWalls();
         buildDynamicBodies();
-
-        //bodySprite.setBounds(Constants.SCREEN_WIDTH / 2 - 70, Constants.SCREEN_HEIGHT / 2 - 70, 140, 140);
-        //bodySprite.setOrigin(bodyTexture.getWidth() / 2, bodyTexture.getHeight() / 2);
+        //buildStaticEnvironment();
 
         batch = new SpriteBatch();
 
@@ -112,6 +113,28 @@ public class Box2DStage extends Stage {
         wallRight.createFixture(rightShape, 0);
         rightShape.dispose();
 
+    }
+
+    private void buildStaticEnvironment() {
+
+        BodyDef def = new BodyDef();
+        def.position.set(0, 0);
+        Body bodyA = physicsWorld.createBody(def);
+        PolygonShape bottomShape = new PolygonShape();
+        bottomShape.setAsBox(Constants.SCREEN_WIDTH / Constants.PIXELS_PER_UNIT * 0.71f, 8.1f);
+        bodyA.createFixture(bottomShape, 0);
+        bottomShape.dispose();
+
+        staticBodies.add(bodyA);
+
+        def.position.set(Constants.SCREEN_WIDTH / Constants.PIXELS_PER_UNIT * 0.4f, 0);
+        Body bodyB = physicsWorld.createBody(def);
+        PolygonShape topShape = new PolygonShape();
+        topShape.setAsBox(Constants.SCREEN_WIDTH / Constants.PIXELS_PER_UNIT * 0.082f, 17f);
+        bodyB.createFixture(topShape, 0);
+        topShape.dispose();
+
+        staticBodies.add(bodyB);
     }
 
     public void buildDynamicBodies() {
@@ -183,7 +206,7 @@ public class Box2DStage extends Stage {
     public void draw() {
         super.draw();
 
-        if(drawPhysicsDebug) {
+        if(drawPhysicsDebug && !drawTextures) {
             physicsRenderer.render(physicsWorld, cam.combined);
         }
 
@@ -191,7 +214,6 @@ public class Box2DStage extends Stage {
 
         if(drawTextures) {
             batch.begin();
-            //bodySprite.setOrigin(dynamicBody.getPosition().x, dynamicBody.getPosition().y);
             for(int i=0; i < dynamicBodies.size; i++) {
                 bodySprites.get(i).setPosition(dynamicBodies.get(i).getPosition().x - bodySprites.get(i).getWidth() / 2, dynamicBodies.get(i).getPosition().y- bodySprites.get(i).getHeight() / 2);
                 bodySprites.get(i).setRotation(dynamicBodies.get(i).getAngle() * MathUtils.radDeg);
@@ -204,7 +226,7 @@ public class Box2DStage extends Stage {
     public boolean isDrawTextures() {
         return drawTextures;
     }
-
+/*
     public boolean isDrawPhysicsDebug() {
         return drawPhysicsDebug;
     }
@@ -212,9 +234,32 @@ public class Box2DStage extends Stage {
     public void setDrawPhysicsDebug(boolean drawPhysicsDebug) {
         this.drawPhysicsDebug = drawPhysicsDebug;
     }
-
+*/
     public void setDrawTextures(boolean drawTextures) {
         this.drawTextures = drawTextures;
     }
 
+    public void setEnvironmentCollisions(boolean environmentCollisions) {
+
+        this.environmentCollision = environmentCollisions;
+
+        if(this.environmentCollision) {
+            buildStaticEnvironment();
+            System.out.println("created");
+        } else {
+            System.out.println("removed");
+
+            for(Body body : staticBodies) {
+                physicsWorld.destroyBody(body);
+                staticBodies.removeValue(body, true);
+                body.setUserData(null);
+                body = null;
+            }
+        }
+
+    }
+
+    public boolean isEnvironmentCollisions() {
+        return environmentCollision;
+    }
 }
