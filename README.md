@@ -9,3 +9,7 @@ Images in this repository
 License: Free for personal use only
 https://www.iconfinder.com/iconsets/angry-icons-by-femfoyou
 
+* Images used in buttons
+License: GPL
+https://www.iconfinder.com/iconsets/circle-icons-1
+
