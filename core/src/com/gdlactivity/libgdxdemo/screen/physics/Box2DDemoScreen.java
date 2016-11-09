@@ -43,13 +43,13 @@ public class Box2DDemoScreen extends AbstractScreen {
 
         stage = new Box2DStage(physicsWorldCamera);
 
-        backButton = new Button(ButtonType.CONTINUE);
+        backButton = new Button(ButtonType.BACK);
         backButton.setBounds(Constants.BUTTON_SIZE_MED / 2, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
 
-        enableTextureButton = new Button(ButtonType.CONTINUE);
+        enableTextureButton = new Button(ButtonType.OK);
         enableTextureButton.setBounds(Constants.BUTTON_SIZE_MED * 2f, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
 
-        enableEnvironmentCollision = new Button(ButtonType.CONTINUE);
+        enableEnvironmentCollision = new Button(ButtonType.RESTART);
         enableEnvironmentCollision.setBounds(Constants.BUTTON_SIZE_MED * 3.5f, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
 
         uiComponents.add(backButton);

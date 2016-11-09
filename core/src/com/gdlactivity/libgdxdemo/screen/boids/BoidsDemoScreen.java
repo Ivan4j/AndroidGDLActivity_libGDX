@@ -21,7 +21,7 @@ public class BoidsDemoScreen extends AbstractScreen {
 
     private ArrayList<Boid> boidsList = new ArrayList<Boid>();
 
-    private int boidsTotal = 80;
+    private int boidsTotal = 65;
     private Texture[] boidTexture = new Texture[5];
     private String[] imageNames = {"imgs/redbird.png", "imgs/blackbird.png", "imgs/bluebird.png", "imgs/greenbird.png", "imgs/yellowbird.png"};
 
@@ -41,7 +41,7 @@ public class BoidsDemoScreen extends AbstractScreen {
             boidsList.add(boid);
         }
 
-        backButton = new Button(ButtonType.CONTINUE);
+        backButton = new Button(ButtonType.BACK);
         backButton.setBounds(Constants.BUTTON_SIZE_MED / 2, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
 
         uiComponents.add(backButton);

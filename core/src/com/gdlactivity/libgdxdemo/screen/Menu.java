@@ -19,11 +19,23 @@ public class Menu extends AbstractScreen {
 
     public Menu() {
 
+        //TO DO change menu buttons creation
+
         float cellWidth = Constants.SCREEN_WIDTH / 4;
         int row = 1;
         for(int i=0; i<uiButtons.length; i++) {
 
-            uiButtons[i] = new Button(ButtonType.NONE);
+            ButtonType type = ButtonType.NONE;
+
+            switch(i) {
+                case 0: type = ButtonType.CONTINUE; break;
+                case 1: type = ButtonType.OK; break;
+                case 2: type = ButtonType.RESTART; break;
+                case 3: type = ButtonType.BACK; break;
+            }
+
+            uiButtons[i] = new Button(type);
+
             int col = 0;
             if(i % 2 == 0) {
                 row += 2;

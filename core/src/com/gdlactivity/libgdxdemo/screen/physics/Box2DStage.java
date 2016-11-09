@@ -250,11 +250,15 @@ public class Box2DStage extends Stage {
             System.out.println("removed");
 
             for(Body body : staticBodies) {
-                physicsWorld.destroyBody(body);
-                staticBodies.removeValue(body, true);
+
+
                 body.setUserData(null);
-                body = null;
+
+                physicsWorld.destroyBody(body);
+
             }
+
+            staticBodies.clear();
         }
 
     }
