@@ -18,6 +18,16 @@ public interface Constants {
     float ANIMATION_SPEED_FACTOR_UI = 1f;
 
 
+    //UI constants
+    int BUTTON_SIZE_SMALL = 40;
+    int BUTTON_SIZE_MED = 60;
+    int BUTTON_SIZE_BIG = 100;
+
+
     //Box2D constants
-    Vector2 GRAVITY = new Vector2(0, -9.8f);
+    Vector2 GRAVITY_EARTH = new Vector2(0, -9.8f);
+    Vector2 GRAVITY_NONE = new Vector2(0, 0);
+
+    int PIXELS_PER_UNIT = 20;
+
 }

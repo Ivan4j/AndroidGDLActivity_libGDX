@@ -6,6 +6,6 @@ package com.gdlactivity.libgdxdemo.ui;
 
 public enum ButtonType {
 
-    OK, CANCEL, CONTINUE, START, RESTART, CLOSE, PAUSE, RESUME, NONE
+    OK, CANCEL, CONTINUE, START, RESTART, CLOSE, PAUSE, RESUME, BACK, NONE
 
 }

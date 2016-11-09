@@ -52,6 +52,9 @@ public class Button extends UIComponent {
             case RESUME:
                 texture = new Texture(Gdx.files.internal("imgs/ui/button_resune.png"));
                 break;
+            case BACK:
+                texture = new Texture(Gdx.files.internal("imgs/ui/button_back.png"));
+                break;
             case NONE:
                 texture = new Texture(Gdx.files.internal("imgs/ui/button_none.png"));
                 break;

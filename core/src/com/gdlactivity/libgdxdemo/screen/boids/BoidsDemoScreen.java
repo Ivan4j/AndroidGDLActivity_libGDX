@@ -3,8 +3,13 @@ package com.gdlactivity.libgdxdemo.screen.boids;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.gdlactivity.libgdxdemo.action.LoadScreenAction;
 import com.gdlactivity.libgdxdemo.model.Boid;
 import com.gdlactivity.libgdxdemo.screen.AbstractScreen;
+import com.gdlactivity.libgdxdemo.screen.AvailableScreens;
+import com.gdlactivity.libgdxdemo.ui.Button;
+import com.gdlactivity.libgdxdemo.ui.ButtonType;
+import com.gdlactivity.libgdxdemo.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -15,9 +20,12 @@ import java.util.ArrayList;
 public class BoidsDemoScreen extends AbstractScreen {
 
     private ArrayList<Boid> boidsList = new ArrayList<Boid>();
-    private Texture[] boidTexture = new Texture[5];
+
     private int boidsTotal = 80;
+    private Texture[] boidTexture = new Texture[5];
     private String[] imageNames = {"imgs/redbird.png", "imgs/blackbird.png", "imgs/bluebird.png", "imgs/greenbird.png", "imgs/yellowbird.png"};
+
+    private Button backButton;
 
     public BoidsDemoScreen() {
 
@@ -32,6 +40,14 @@ public class BoidsDemoScreen extends AbstractScreen {
             boid.setBounds((float)(Math.random() * 480), (float)(Math.random() * 800), boidTexture[rndIndex].getWidth() / 4, boidTexture[rndIndex].getHeight() / 4);
             boidsList.add(boid);
         }
+
+        backButton = new Button(ButtonType.CONTINUE);
+        backButton.setBounds(Constants.BUTTON_SIZE_MED / 2, Constants.SCREEN_HEIGHT - Constants.BUTTON_SIZE_MED * 1.2f, Constants.BUTTON_SIZE_MED, Constants.BUTTON_SIZE_MED);
+
+        uiComponents.add(backButton);
+
+        backButton.setAction(new LoadScreenAction(AvailableScreens.MENU));
+
     }
 
     @Override
@@ -53,6 +69,8 @@ public class BoidsDemoScreen extends AbstractScreen {
             boid.draw(spriteBatch);
             boid.update(boidsList);
         }
+
+        backButton.draw(spriteBatch);
 
         spriteBatch.end();
 

@@ -59,6 +59,8 @@ public class UIController implements InputProcessor {
         GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
         dragging = true;
 
+        uiSelected = null;
+
         for(UIComponent ui : this.uiCopmponents) {
             if (MathUtils.checkTouchCollision(touchPoint, ui.getBoundingRectangle())) {
 
