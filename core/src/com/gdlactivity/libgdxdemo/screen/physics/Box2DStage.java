@@ -3,6 +3,8 @@ package com.gdlactivity.libgdxdemo.screen.physics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +20,9 @@ import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.gdlactivity.libgdxdemo.utils.Constants;
+
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 
 /**
  * Created by Ivan_Hernandez on 08/11/2016.
@@ -39,6 +44,8 @@ public class Box2DStage extends Stage {
     private boolean drawTextures = false;
     private boolean environmentCollision = false;
 
+    private boolean lightsEnabled = false;
+
     private float accumulator = 0;
     private final float step = 1 / 60f;
 
@@ -56,6 +63,7 @@ public class Box2DStage extends Stage {
     private SpriteBatch batch;
     private Camera cam;
 
+    RayHandler rayHandler;
 
     public Box2DStage(Camera cam) {
 
@@ -74,11 +82,19 @@ public class Box2DStage extends Stage {
             boidTexture[i].setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         }
 
+
+        if(lightsEnabled)
+            rayHandler = new RayHandler(physicsWorld);
+
         buildWalls();
         buildDynamicBodies();
         //buildStaticEnvironment();
 
         batch = new SpriteBatch();
+
+
+        //new PointLight(rayHandler, 128, new Color(1,1,1,1), 16, Constants.SCREEN_WIDTH / Constants.PIXELS_PER_UNIT / 2, Constants.SCREEN_HEIGHT / Constants.PIXELS_PER_UNIT / 2);
+
 
     }
 
@@ -170,6 +186,20 @@ public class Box2DStage extends Stage {
 
             dynamicBodies.add(dynamicBody);
             bodySprites.add(bodySprite);
+
+
+            if(lightsEnabled) {
+                PointLight light = new PointLight(
+                        rayHandler, 128, null, 5, 0f, 0f);
+                light.attachToBody(dynamicBody, radius / 4f, radius / 4f);
+                light.setColor(
+                        MathUtils.random(),
+                        MathUtils.random(),
+                        MathUtils.random(),
+                        1f);
+
+            }
+
         }
 
         circle.dispose();
@@ -211,6 +241,11 @@ public class Box2DStage extends Stage {
         }
 
         batch.setProjectionMatrix(cam.combined);
+
+        if(lightsEnabled) {
+            rayHandler.setCombinedMatrix((OrthographicCamera)cam);
+            rayHandler.updateAndRender();
+        }
 
         if(drawTextures) {
             batch.begin();
