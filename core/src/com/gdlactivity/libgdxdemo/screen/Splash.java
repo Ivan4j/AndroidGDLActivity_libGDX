@@ -64,10 +64,6 @@ public class Splash extends AbstractScreen {
     public void render(float delta) {
         super.render(delta);
 
-        // Clear screen
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         spriteBatch.begin();
 
         spriteBatch.draw(splashTextTexture, Constants.SCREEN_WIDTH / 2 - 480 * 0.7f / 2, Constants.SCREEN_HEIGHT - Constants.SCREEN_HEIGHT / 3, 480 * 0.7f, 100 * 0.7f);

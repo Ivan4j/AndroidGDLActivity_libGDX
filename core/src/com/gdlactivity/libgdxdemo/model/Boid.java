@@ -191,17 +191,18 @@ public class Boid extends Sprite {
 
         Vector2 force = new Vector2();
 
-        if(this.position.x < 50)
+        if(this.position.x < 20)
             force.x = 1;
-        else if(this.position.x > 480 - 80)
+        else if(this.position.x > 480 - 40)
             force.x = -1;
 
-        if(this.position.y < 50)
+        if(this.position.y < 20)
             force.y = 1;
-        else if(this.position.y > 800 - 80)
+        else if(this.position.y > 800 - 40)
             force.y = -1;
 
         return force;
+
     }
 
 }

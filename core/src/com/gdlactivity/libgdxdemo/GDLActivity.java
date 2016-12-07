@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdlactivity.libgdxdemo.controller.SpriteAccessor;
-import com.gdlactivity.libgdxdemo.screen.AvailableScreens;
 import com.gdlactivity.libgdxdemo.screen.Menu;
 import com.gdlactivity.libgdxdemo.screen.ScreenManager;
 import com.gdlactivity.libgdxdemo.screen.Splash;
@@ -47,7 +45,7 @@ public class GDLActivity extends Game {
 	@Override
 	public void create () {
 
-		ScreenManager.getInstance().setGame(this);
+		//ScreenManager.getInstance().setGame(this);
 
 		batch = new SpriteBatch();
 
@@ -55,7 +53,7 @@ public class GDLActivity extends Game {
 		viewport = new FitViewport(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, camera);
 		viewport.apply();
 
-		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+		//camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 
 		tweenManager = new TweenManager();
 
@@ -63,7 +61,6 @@ public class GDLActivity extends Game {
 
 		//this.setScreen(new Splash());
 		//this.setScreen(new Menu());
-
 
 		Screen screen = null;
 
@@ -82,20 +79,21 @@ public class GDLActivity extends Game {
 				break;
 		}
 
-		//ScreenManager.getInstance().getGame().setScreen(screen);
-		this.setScreen(screen);
+		ScreenManager.getInstance().setScreen(screen);
+
+		//this.setScreen(screen);
 
 	}
 
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.setProjectionMatrix(camera.combined);
 
-		ScreenManager.getInstance().getGame().getScreen().render(Gdx.graphics.getDeltaTime() * Constants.GLOBAL_SPEED_FACTOR);
+		ScreenManager.getInstance().render(); //getGame().getScreen().render(Gdx.graphics.getDeltaTime() * Constants.GLOBAL_SPEED_FACTOR);
 
 		tweenManager.update(Gdx.graphics.getDeltaTime() * Constants.ANIMATION_SPEED_FACTOR_UI * Constants.GLOBAL_SPEED_FACTOR);
 	}
@@ -107,7 +105,8 @@ public class GDLActivity extends Game {
 
 	public void resize(int width, int height) {
 		viewport.update(width, height, true);
-		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+		//camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+		camera.update();
 	}
 
 	public static SpriteBatch getSpriteBatch() {

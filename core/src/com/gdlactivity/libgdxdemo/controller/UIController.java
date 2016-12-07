@@ -133,7 +133,7 @@ public class UIController implements InputProcessor {
 
         Tween.to(component, SpriteAccessor.SCALE_XY, 0.15f)
             .target(1.15f, 1.15f)
-            .ease(Back.OUT)
+            .ease(Back.INOUT)
             .start(GDLActivity.getTweenManager());
 
         System.out.println("Animate IN");
@@ -144,7 +144,7 @@ public class UIController implements InputProcessor {
 
         Tween.to(component, SpriteAccessor.SCALE_XY, 0.2f)
             .target(1f, 1f)
-            .ease(Back.IN)
+            .ease(Back.INOUT)
             .setCallback(new TweenCallback() {
                 @Override
                 public void onEvent(int i, BaseTween<?> baseTween) {

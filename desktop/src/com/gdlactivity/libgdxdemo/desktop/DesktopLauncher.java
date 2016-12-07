@@ -7,8 +7,8 @@ import com.gdlactivity.libgdxdemo.GDLActivity;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 480;
-		config.height = 800;
+		config.width = (int)(1080 * .45f);
+		config.height = (int)(1920 * .45f);
 		new LwjglApplication(new GDLActivity(), config);
 	}
 }

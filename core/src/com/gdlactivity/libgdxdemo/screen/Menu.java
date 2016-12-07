@@ -19,7 +19,7 @@ public class Menu extends AbstractScreen {
 
     public Menu() {
 
-        //TO DO change menu buttons creation
+        //TODO change menu buttons creation
 
         float cellWidth = Constants.SCREEN_WIDTH / 4;
         int row = 1;
@@ -58,9 +58,6 @@ public class Menu extends AbstractScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         GDLActivity.getSpriteBatch().begin();
 

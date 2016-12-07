@@ -61,8 +61,8 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        GDLActivity.getViewport().update(width, height, true);
-        GDLActivity.getCamera().position.set(GDLActivity.getCamera().viewportWidth / 2, GDLActivity.getCamera().viewportHeight / 2, 0);
+        //GDLActivity.getViewport().update(width, height, true);
+        //GDLActivity.getCamera().position.set(GDLActivity.getCamera().viewportWidth / 2, GDLActivity.getCamera().viewportHeight / 2, 0);
     }
 
     @Override
