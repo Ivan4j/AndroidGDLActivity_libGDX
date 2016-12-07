@@ -83,13 +83,15 @@ public class UIController implements InputProcessor {
 
         //GDLActivity.getCamera().unproject(touchPoint.set(screenX, screenY, 0));
         touchPoint = GDLActivity.getViewport().unproject(new Vector3(screenX,screenY,0));
-        if (dragging) {
+        if (dragging && uiSelected != null) {
             for (UIComponent ui : this.uiCopmponents) {
                 if (MathUtils.checkTouchCollision(touchPoint, ui.getBoundingRectangle())) {
 
                     System.out.println("Touched");
                     if(ui == uiSelected) {
-                        animateComponentOUT(ui);
+                        animateComponentOUT(ui, true);
+                        dragging = false;
+                        uiSelected = null;
                         return true;
                     }
                 }
@@ -139,8 +141,11 @@ public class UIController implements InputProcessor {
         System.out.println("Animate IN");
 
     }
-
     public void animateComponentOUT(final UIComponent component) {
+        animateComponentOUT(component, false);
+    }
+
+    public void animateComponentOUT(final UIComponent component, final boolean executeAction) {
 
         Tween.to(component, SpriteAccessor.SCALE_XY, 0.2f)
             .target(1f, 1f)
@@ -148,8 +153,9 @@ public class UIController implements InputProcessor {
             .setCallback(new TweenCallback() {
                 @Override
                 public void onEvent(int i, BaseTween<?> baseTween) {
-                    if(component instanceof Button)
-                        ((Button) component).executeAction();
+                    if(executeAction)
+                        if(component instanceof Button)
+                            ((Button) component).executeAction();
                 }
             })
             .start(GDLActivity.getTweenManager());
